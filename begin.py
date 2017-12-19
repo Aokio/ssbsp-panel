@@ -60,7 +60,11 @@ def check_user_exeist(username):
         return 0
 
 def add_invite_code(port, code, flux_limit):
-    cur.exccute("insert into invite_code (port, code, flux_limit) values ({}, '{}', {})".format(port, code, flux_limit))
+    try:
+        cur.execute("insert into invite_code (port, code, flux_limit) values ({}, '{}', {})".format(port, code, flux_limit))
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
 def add_user(username, password, invite_code):
 
     code_info = get_invite_info(invite_code)
