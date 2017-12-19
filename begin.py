@@ -3,7 +3,7 @@ import json
 import os
 from random import choice
 import string
-conn = sqlite3.connect("/ect/byte/bsp.db")
+conn = sqlite3.connect("/etc/byte/bsp.db")
 cur = conn.cursor()
 
 def initdb():
