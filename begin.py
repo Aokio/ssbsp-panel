@@ -18,7 +18,7 @@ def initdb():
        invite_code     CHAR(50)    NOT NULL,       
        flux_limit      INTEGER     NOT NULL,
        create_at       DATETIME    NOT NULL default CURRENT_TIMESTAMP,
-       update_at       DATETIME    NOT NULL default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+       update_at       DATETIME    NOT NULL default CURRENT_TIMESTAMP
        );''')
        
     cur.execute('''CREATE TABLE invate_code
@@ -29,7 +29,7 @@ def initdb():
        flux_limit      INTEGER     NOT NULL,
        is_activate     INTEGER     NOT NULL default 0
        create_at       DATETIME    NOT NULL default CURRENT_TIMESTAMP,
-       update_at       DATETIME    NOT NULL default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+       update_at       DATETIME    NOT NULL default CURRENT_TIMESTAMP
        );''')
     print "Table created successfully";
     conn.commit()
