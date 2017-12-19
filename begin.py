@@ -27,7 +27,7 @@ def initdb():
        port            INTEGER     NOT NULL,
        code            CHAR(50)    NOT NULL,       
        flux_limit      INTEGER     NOT NULL,
-       is_activate     INTEGER     NOT NULL default 0
+       is_activate     INTEGER     NOT NULL default 0,
        create_at       DATETIME    NOT NULL default CURRENT_TIMESTAMP,
        update_at       DATETIME    NOT NULL default CURRENT_TIMESTAMP
        );''')
