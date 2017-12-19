@@ -59,7 +59,7 @@ def check_user_exeist(username):
     else:
         return 0
 
-def add_invite_code(portm, code, flux_limit):
+def add_invite_code(port, code, flux_limit):
     cur.exccute("insert into invite_code (port, code, flux_limit) values ({}, '{}', {})".format(port, code, flux_limit))
 def add_user(username, password, invite_code):
 
