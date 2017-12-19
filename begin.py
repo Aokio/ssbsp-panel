@@ -21,9 +21,9 @@ def initdb():
        update_at       DATETIME    NOT NULL default CURRENT_TIMESTAMP
        );''')
        
-    cur.execute('''CREATE TABLE invate_code
+    cur.execute('''CREATE TABLE invite_code
        (id INTEGER PRIMARY KEY  autoincrement NOT NULL,
-       username        CHAR(50)    NOT NULL,
+       username        CHAR(50),
        port            INTEGER     NOT NULL,
        code            CHAR(50)    NOT NULL,       
        flux_limit      INTEGER     NOT NULL,
@@ -34,7 +34,7 @@ def initdb():
     print "Table created successfully";
     conn.commit()
 
-def GenPassword(length=8,chars=string.ascii_letters+string.digits):
+def GenPassword(length=16,chars=string.ascii_letters+string.digits):
     return ''.join([choice(chars) for i in range(length)])
 
 def get_ports_info(port):
@@ -42,14 +42,15 @@ def get_ports_info(port):
     por_info = cur.fetchall()
     return por_info
 
-def get_invite_info(invate_code):
-    cur.execute("select port, limit from invate_code where code='{}' and is_activate=0 ".format(invate_code))
+def get_invite_info(invite_code):
+    cur.execute("select port, limit from invite_code where code='{}' and is_activate=0 ".format(invite_code))
     code_info = cur.fetone()
     if code_info:
         return code_info
     else:
         return 0
 
+    
 def check_user_exeist(username):
     cur.execute("select * from user_info where username='{}'".format(username))
     user = cur.fetchone()
@@ -58,9 +59,11 @@ def check_user_exeist(username):
     else:
         return 0
 
+def add_invite_code(portm, code, flux_limit):
+    cur.exccute("insert into invite_code (port, code, flux_limit) values ({}, '{}', {})".format(port, code, flux_limit))
 def add_user(username, password, invite_code):
 
-    code_info = get_invite_info(invate_code)
+    code_info = get_invite_info(invite_code)
     if check_user_exeist(username):
         return 0
     else:
