@@ -44,13 +44,12 @@ def get_ports_info(port):
 
 def get_invite_info(invite_code):
     cur.execute("select port, flux_limit from invite_code where code='{}' and is_activate=0 ".format(invite_code))
-    code_info = cur.fetone()
+    code_info = cur.fetchone()
     if code_info:
         return code_info
     else:
         return 0
 
-    
 def check_user_exeist(username):
     cur.execute("select * from user_info where username='{}'".format(username))
     user = cur.fetchone()
