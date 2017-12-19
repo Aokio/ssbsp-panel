@@ -43,7 +43,7 @@ def get_ports_info(port):
     return por_info
 
 def get_invite_info(invite_code):
-    cur.execute("select port, limit from invite_code where code='{}' and is_activate=0 ".format(invite_code))
+    cur.execute("select port, flux_limit from invite_code where code='{}' and is_activate=0 ".format(invite_code))
     code_info = cur.fetone()
     if code_info:
         return code_info
