@@ -34,12 +34,12 @@ def initdb():
     print "Table created successfully";
     conn.commit()
 
-def GenPassword(length=16,chars=string.ascii_letters+string.digits):
+def GenPassword(length=10,chars=string.ascii_letters+string.digits):
     return ''.join([choice(chars) for i in range(length)])
 
 def get_ports_info(port):
     cur.execute("select email, username, limit, limit_flux from port_flux where port = {}".format(port))
-    por_info = cur.fetchall()
+    por_info = cur.fetchone()
     return por_info
 
 def get_invite_info(invite_code):
@@ -64,6 +64,7 @@ def add_invite_code(port, code, flux_limit):
         conn.commit()
     except Exception as e:
         conn.rollback()
+
 def add_user(username, password, invite_code):
 
     code_info = get_invite_info(invite_code)
@@ -74,14 +75,16 @@ def add_user(username, password, invite_code):
 
     if code_info:
         port = code_info[0]
-        port_passwd = GenPassword(16)
+        port_passwd = GenPassword(10)
         flux_limit = code_info[1]
         try:
             cur.execute("insert into user_info (username, user_passwd, port, port_passwd, flux_limit, invite_code) values ('{}', '{}', {}, '{}', {}, '{}')".format(username, user_passwd,port,port_passwd, flux_limit, invite_code))
-            os.system("bsp -p {} -P '{}' -s {} -a -A -j".format(port, port_passwd, flux_limit))
+            cmd = "bsp -p {} -P '{}' -s {} -a -A -j".format(port, port_passwd, flux_limit)
+            print cmd
+            os.system(cmd)
             conn.commit()
         except Exception as e:
-	    print e
+            print e
             conn.rollback()
     else:   
         return 0
