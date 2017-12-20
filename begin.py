@@ -77,8 +77,8 @@ def add_user(username, password, invite_code):
         port_passwd = GenPassword(16)
         flux_limit = code_info[1]
         try:
-            cur.execute("insert into user_info (username, user_passwd, port, port_passwd, flux_limit, invite_code) values ('{}', '{}', {}, '{}', {}, '{}')".format(username,user_passwd,port,port_passwd,flux_limit, invite_code))
-            os.system("bsp -p {} -P '{}' -s {} -a -A -j".format(port, password, flux_limit))
+            cur.execute("insert into user_info (username, user_passwd, port, port_passwd, flux_limit, invite_code) values ('{}', '{}', {}, '{}', {}, '{}')".format(username, user_passwd,port,port_passwd, flux_limit, invite_code))
+            os.system("bsp -p {} -P '{}' -s {} -a -A -j".format(port, port_passwd, flux_limit))
             conn.commit()
         except Exception as e:
 	    print e
